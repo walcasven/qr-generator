@@ -1,0 +1,26 @@
+{
+  "name": "qr-studio-pro",
+  "version": "1.0.0",
+  "description": "Aplicación moderna y profesional para generar y personalizar códigos QR interactivos con exportación de alta resolución, logos, gradientes y escáner.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "qr",
+    "generator",
+    "qr-code",
+    "scanner",
+    "design",
+    "vector",
+    "svg",
+    "png"
+  ],
+  "author": "Antigravity Pair Programmer",
+  "license": "MIT",
+  "dependencies": {
+    "jsqr": "^1.4.0",
+    "qr-code-styling": "^1.8.4"
+  }
+}

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Studio Pro | Generador & Escáner de Códigos QR</title>
+  <meta name="description" content="Genera, personaliza y descarga códigos QR profesionales en alta definición (PNG, SVG). Personaliza colores, gradientes, esquinas y añade tu propio logo." />
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Luces ambientales de fondo -->
+  <div class="bg-ambient-glow">
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+    <div class="glow-orb-3"></div>
+  </div>
+
+  <!-- Header Superior -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-wrapper">
+        <div class="logo-badge-icon">⚡</div>
+        <div class="logo-text">
+          <h1>QR Studio <span class="logo-tag">PRO</span></h1>
+          <div class="logo-subtitle">Generador y Diseñador Vectorial de Códigos QR</div>
+        </div>
+      </div>
+
+      <nav class="header-nav">
+        <button type="button" class="main-nav-tab active" data-mode="generator">
+          <span>✨</span> Generador QR
+        </button>
+        <button type="button" class="main-nav-tab" data-mode="scanner">
+          <span>📷</span> Escanear QR
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <main class="main-content">
+    
+    <!-- MODO 1: GENERADOR -->
+    <div id="panel-generator" class="generator-grid">
+      
+      <!-- COLUMNA IZQUIERDA: CONFIGURADOR -->
+      <div class="config-column">
+        
+        <!-- Tarjeta 1: Tipo de Contenido -->
+        <section class="glass-panel" style="margin-bottom: 24px;">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <span>1. Contenido del Código</span>
+            </h2>
+            <span class="panel-title-badge">Selecciona el formato</span>
+          </div>
+
+          <!-- Selector de tipos (URL, WiFi, WhatsApp, etc.) -->
+          <div class="type-tabs-wrapper" id="qr-type-tabs">
+            <!-- Renderizado dinámicamente por JavaScript -->
+          </div>
+
+          <!-- Formulario dinámico según tipo seleccionado -->
+          <div id="qr-type-form-container">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </section>
+
+        <!-- Tarjeta 2: Personalización Visual y Estilos -->
+        <section class="glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <span>2. Diseño y Personalización</span>
+            </h2>
+            <span class="panel-title-badge">Estilo Pro</span>
+          </div>
+
+          <!-- Pestañas de Personalización -->
+          <div class="style-tabs-header">
+            <button type="button" class="style-tab-btn active" data-panel="style-panel-colors">
+              🎨 Colores
+            </button>
+            <button type="button" class="style-tab-btn" data-panel="style-panel-shapes">
+              💠 Formas & Puntos
+            </button>
+            <button type="button" class="style-tab-btn" data-panel="style-panel-logo">
+              🖼️ Logo en el Centro
+            </button>
+            <button type="button" class="style-tab-btn" data-panel="style-panel-presets">
+              ⚡ Plantillas
+            </button>
+            <button type="button" class="style-tab-btn" data-panel="style-panel-tech">
+              ⚙️ Ajustes Técnicos
+            </button>
+          </div>
+
+          <!-- Panel 1: Colores & Gradientes -->
+          <div id="style-panel-colors" class="style-panel-content active">
+            <div class="form-group">
+              <label>Modo de Color de los Puntos</label>
+              <div class="color-mode-selector">
+                <label class="radio-pill-label">
+                  <input type="radio" name="dots-color-mode" id="dots-color-mode-single" checked />
+                  <span>Color Sólido</span>
+                </label>
+                <label class="radio-pill-label">
+                  <input type="radio" name="dots-color-mode" id="dots-color-mode-gradient" />
+                  <span>Degradado Dinámico</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Color único -->
+            <div id="single-color-controls">
+              <div class="form-group">
+                <label for="opt-dots-color">Color de los puntos QR</label>
+                <div class="color-input-wrapper">
+                  <input type="color" id="opt-dots-color" value="#0f172a" />
+                  <span class="color-hex-label">Principal</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gradiente -->
+            <div id="gradient-controls" style="display: none;">
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="opt-grad-color1">Color Inicial</label>
+                  <div class="color-input-wrapper">
+                    <input type="color" id="opt-grad-color1" value="#00c6ff" />
+                    <span class="color-hex-label">Inicio</span>
+                  </div>
+                </div>
+                <div class="form-group col">
+                  <label for="opt-grad-color2">Color Final</label>
+                  <div class="color-input-wrapper">
+                    <input type="color" id="opt-grad-color2" value="#0072ff" />
+                    <span class="color-hex-label">Fin</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="opt-grad-angle">Ángulo del Degradado</label>
+                <input type="range" id="opt-grad-angle" min="0" max="360" value="45" step="15" />
+              </div>
+            </div>
+
+            <!-- Colores de esquinas -->
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="opt-corner-square-color">Color Marco Esquinas</label>
+                <div class="color-input-wrapper">
+                  <input type="color" id="opt-corner-square-color" value="#0f172a" />
+                  <span class="color-hex-label">Marco</span>
+                </div>
+              </div>
+              <div class="form-group col">
+                <label for="opt-corner-dot-color">Color Punto Esquinas</label>
+                <div class="color-input-wrapper">
+                  <input type="color" id="opt-corner-dot-color" value="#0f172a" />
+                  <span class="color-hex-label">Centro</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Color de Fondo -->
+            <div class="form-group">
+              <label for="opt-bg-color">Color de Fondo</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="opt-bg-color" value="#ffffff" />
+                <span class="color-hex-label">Fondo</span>
+              </div>
+              <div style="margin-top: 10px;">
+                <label class="checkbox-label" for="opt-bg-transparent">
+                  <input type="checkbox" id="opt-bg-transparent" />
+                  <span>Fondo transparente (ideal para superponer en banners y diseño gráfico)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Formas y Puntos -->
+          <div id="style-panel-shapes" class="style-panel-content">
+            <div class="form-group">
+              <label for="opt-dots-type">Patrón de los Puntos (Dots)</label>
+              <select id="opt-dots-type" class="form-control">
+                <option value="rounded" selected>Redondeados (Moderno suave)</option>
+                <option value="dots">Puntos circulares (Dots)</option>
+                <option value="extra-rounded">Extra Redondeados (Cápsula)</option>
+                <option value="classy">Classy (Elegante)</option>
+                <option value="classy-rounded">Classy Redondeado</option>
+                <option value="square">Cuadrados Clásicos</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="opt-corner-square-type">Marco Exterior de Esquinas</label>
+                <select id="opt-corner-square-type" class="form-control">
+                  <option value="extra-rounded" selected>Extra Redondeado</option>
+                  <option value="dot">Circular</option>
+                  <option value="square">Cuadrado</option>
+                </select>
+              </div>
+              <div class="form-group col">
+                <label for="opt-corner-dot-type">Punto Interior de Esquinas</label>
+                <select id="opt-corner-dot-type" class="form-control">
+                  <option value="dot" selected>Circular (Dot)</option>
+                  <option value="square">Cuadrado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Logo Central -->
+          <div id="style-panel-logo" class="style-panel-content">
+            <div class="form-group">
+              <label>Iconos Rápidos de Marcas y Redes</label>
+              <div class="logo-presets-grid" id="logo-presets-grid">
+                <!-- Renderizado dinámicamente -->
+              </div>
+            </div>
+
+            <div class="custom-logo-upload-box">
+              <label for="custom-logo-input" style="cursor: pointer; display: block;">
+                <span style="font-size: 24px; display: block; margin-bottom: 6px;">📁</span>
+                <strong style="color: var(--accent-primary);">Haz clic para subir tu propio logotipo</strong>
+                <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Soporta PNG, SVG, JPG o WebP con fondo transparente</div>
+              </label>
+              <input type="file" id="custom-logo-input" accept="image/*" style="display: none;" />
+              
+              <div style="margin-top: 12px;">
+                <button type="button" class="btn-secondary-action" id="btn-remove-logo" style="margin: 0 auto;">
+                  🗑️ Quitar logo actual
+                </button>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col slider-group">
+                <div class="slider-header">
+                  <span>Tamaño del Logo</span>
+                  <span id="opt-logo-size-val" class="slider-value">35%</span>
+                </div>
+                <input type="range" id="opt-logo-size" min="0.15" max="0.45" step="0.05" value="0.35" />
+              </div>
+
+              <div class="form-group col slider-group">
+                <div class="slider-header">
+                  <span>Margen / Borde del Logo</span>
+                  <span id="opt-logo-margin-val" class="slider-value">4px</span>
+                </div>
+                <input type="range" id="opt-logo-margin" min="0" max="16" step="1" value="4" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4: Plantillas Rápidas -->
+          <div id="style-panel-presets" class="style-panel-content">
+            <div class="form-hint" style="margin-bottom: 14px;">Aplica una combinación estética completa con un solo clic:</div>
+            <div class="presets-grid" id="presets-grid">
+              <!-- Renderizado dinámicamente -->
+            </div>
+          </div>
+
+          <!-- Panel 5: Ajustes Técnicos -->
+          <div id="style-panel-tech" class="style-panel-content">
+            <div class="form-group">
+              <label for="opt-error-correction">Nivel de Corrección de Errores (ECC)</label>
+              <select id="opt-error-correction" class="form-control">
+                <option value="L">L - Bajo (7% de daño recuperable - Código más simple)</option>
+                <option value="M">M - Medio (15% recuperable)</option>
+                <option value="Q" selected>Q - Alto (25% recuperable - Recomendado)</option>
+                <option value="H">H - Máximo (30% recuperable - Esencial si usas Logo)</option>
+              </select>
+              <div class="form-hint">Un nivel más alto permite que el código QR siga leyéndose aunque esté arrugado, manchado o tenga un logotipo en el centro.</div>
+            </div>
+
+            <div class="form-group slider-group">
+              <div class="slider-header">
+                <span>Margen Exterior del QR</span>
+                <span id="opt-margin-val" class="slider-value">10px</span>
+              </div>
+              <input type="range" id="opt-margin" min="0" max="40" step="2" value="10" />
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- COLUMNA DERECHA: PREVISUALIZACIÓN EN VIVO (STICKY) -->
+      <aside class="preview-column">
+        <div class="glass-panel qr-card-preview">
+          <div class="panel-header" style="width: 100%;">
+            <h2 class="panel-title">
+              <span>Vista Previa</span>
+            </h2>
+            <span class="badge badge-info" id="badge-live-indicator">● En Vivo</span>
+          </div>
+
+          <!-- Contenedor del Canvas QR -->
+          <div class="qr-canvas-holder" id="qr-preview-canvas">
+            <!-- Canvas renderizado por qr-code-styling -->
+          </div>
+
+          <!-- Metadatos de la imagen -->
+          <div class="preview-meta">
+            <div class="meta-badges">
+              <span class="badge" id="badge-byte-count">0 caracteres</span>
+              <span class="badge" id="badge-ec-level">Nivel Q</span>
+            </div>
+            <div class="preview-summary-text" id="preview-data-summary">
+              https://google.com
+            </div>
+          </div>
+
+          <!-- Selector de Resolución y Exportación -->
+          <div class="export-actions-grid">
+            <div class="resolution-row">
+              <span>Resolución de descarga:</span>
+              <select id="export-resolution" class="form-control" style="width: auto; padding: 6px 10px;">
+                <option value="512">512 x 512 px (Estándar)</option>
+                <option value="1024" selected>1024 x 1024 px (Alta Definición)</option>
+                <option value="2048">2048 x 2048 px (Ultra HD)</option>
+                <option value="4096">4096 x 4096 px (Impresión Pro)</option>
+              </select>
+            </div>
+
+            <!-- Botón de Descarga Principal -->
+            <button type="button" class="btn-primary-action" id="btn-download-png">
+              <span>📥</span> Descargar Imagen PNG
+            </button>
+
+            <!-- Botones Secundarios -->
+            <div class="btn-secondary-group">
+              <button type="button" class="btn-secondary-action" id="btn-download-svg" title="Vectorial infinito sin pérdida de calidad">
+                <span>📐</span> Vectorial SVG
+              </button>
+              <button type="button" class="btn-secondary-action" id="btn-copy-clipboard" title="Copiar imagen al portapapeles">
+                <span>📋</span> Copiar Imagen
+              </button>
+            </div>
+
+            <div class="btn-secondary-group">
+              <button type="button" class="btn-secondary-action" id="btn-download-webp" title="Formato web optimizado">
+                <span>🌐</span> Formato WebP
+              </button>
+              <button type="button" class="btn-secondary-action" id="btn-print-qr" title="Imprimir plantilla limpia">
+                <span>🖨️</span> Imprimir
+              </button>
+            </div>
+
+            <button type="button" class="btn-secondary-action" id="btn-save-history" style="margin-top: 6px;">
+              <span>💾</span> Guardar en Historial Local
+            </button>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- MODO 2: ESCÁNER QR -->
+    <div id="panel-scanner" style="display: none;">
+      <div class="scanner-view-container glass-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <span>📷 Lector y Escáner de Códigos QR</span>
+          </h2>
+        </div>
+
+        <!-- Zona para arrastrar o subir imagen -->
+        <div class="scanner-dropzone" id="scanner-dropzone">
+          <span class="scanner-icon">📤</span>
+          <h3>Arrastra una imagen con código QR aquí</h3>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 6px;">
+            O haz clic para seleccionar un archivo desde tu dispositivo
+          </p>
+          <input type="file" id="scanner-file-input" accept="image/*" style="display: none;" />
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+          <span style="color: var(--text-subtle); font-size: 13px;">— O UTILIZA TU CÁMARA WEB EN DIRECTO —</span>
+        </div>
+
+        <!-- Botones de cámara -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button type="button" class="btn-primary-action" id="btn-start-camera" style="width: auto; margin: 0 auto; display: inline-flex;">
+            <span>📹</span> Iniciar Cámara en Vivo
+          </button>
+          <button type="button" class="btn-secondary-action" id="btn-stop-camera" style="display: none; width: auto; margin: 0 auto; background: #dc2626; color: white;">
+            <span>⏹️</span> Detener Cámara
+          </button>
+        </div>
+
+        <!-- Vista de la cámara web -->
+        <div id="camera-stream-container" style="display: none;">
+          <div class="camera-stream-wrapper">
+            <video id="scanner-video"></video>
+            <div class="camera-scanner-overlay"></div>
+          </div>
+        </div>
+
+        <!-- Resultado del escaneo -->
+        <div class="scan-result-card" id="scanner-result-card" style="display: none;">
+          <div class="scan-result-title">
+            <span>🎯 Código Detectado con Éxito</span>
+          </div>
+          <div class="scan-result-content" id="scanner-result-text"></div>
+          
+          <div class="scan-result-actions">
+            <button type="button" class="btn-primary-action" id="btn-copy-scan-result" style="width: auto; padding: 8px 16px; font-size: 13px;">
+              📋 Copiar Texto
+            </button>
+            <button type="button" class="btn-secondary-action" id="btn-load-to-generator">
+              ✨ Cargar en el Generador
+            </button>
+            <button type="button" class="btn-secondary-action" id="btn-open-scan-link" style="display: none;">
+              🔗 Abrir Enlace
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE HISTORIAL RECIENTE -->
+    <section class="history-section glass-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">
+          <span>🕒 Historial de Códigos Recientes</span>
+        </h2>
+        <span class="panel-title-badge">Guardado localmente</span>
+      </div>
+
+      <div class="history-list" id="history-list">
+        <!-- Renderizado dinámicamente -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Contenedor de Alertas Toast -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="vendor/qr-code-styling.js"></script>
+  <script src="vendor/jsQR.js"></script>
+  <script src="js/qr-icons.js"></script>
+  <script src="js/qr-presets.js"></script>
+  <script src="js/qr-types.js"></script>
+  <script src="js/qr-scanner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
